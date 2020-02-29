@@ -6,8 +6,8 @@ public class Exercise {
 
 	public static void main(String[] args){
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/spring-context.xml");
-		ExamService service = context.getBean(ExamService.class);
-		service.exam();
+		ExamService examService = context.getBean(ExamService.class);
+		examService.exam();
 
 	}
 }

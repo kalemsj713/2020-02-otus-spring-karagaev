@@ -6,7 +6,6 @@
     <groupId>ru.kalemsj713.otus</groupId>
     <artifactId>first-exercise</artifactId>
     <version>1.0</version>
-    <packaging>pom</packaging>
     <properties>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
