@@ -6,5 +6,6 @@
         <constructor-arg name="questionDao" ref="questionDao"/>
     </bean>
     <bean id="questionDao" class="ru.kalemsj713.otus.exercise.dao.QuestionDaoImpl">
+        <constructor-arg name="fileName" value="default.csv"/>
     </bean>
 </beans>

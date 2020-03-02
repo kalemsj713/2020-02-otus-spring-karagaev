@@ -44,11 +44,13 @@ public class ExamServiceImpl implements ExamService {
 			for (int j = 0; j < question.getAnswers().size(); j++) {
 				System.out.println(String.format("Answer #%d: %s", j + 1, question.getAnswers().get(j)));
 			}
+			System.out.println("Enter the number of the correct answer.");
+
 			if (scanner.hasNextInt() && scanner.nextInt() == question.getCorrectAnswerNumber()) {
 				result = result + 1;
 				System.out.println("Right.");
 			} else {
-				System.out.println(String.format("Wrong! Correct answer #%d: %s", question.getCorrectAnswerNumber() + 1, question.getAnswers().get(question.getCorrectAnswerNumber())));
+				System.out.println(String.format("Wrong! Correct answer is #%d: %s", question.getCorrectAnswerNumber() + 1, question.getAnswers().get(question.getCorrectAnswerNumber())));
 			}
 		}
 	}
