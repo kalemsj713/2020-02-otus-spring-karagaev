@@ -27,7 +27,8 @@ public class QuestionDaoImpl implements QuestionDao {
 	public List<Question> getQuestionPack() {
 		List<Question> questionsPack = new ArrayList<>();
 		List<String> questionFromFile = new ArrayList<>();
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(fileName)), StandardCharsets.UTF_8))) {
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(
+				Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(fileName)), StandardCharsets.UTF_8))) {
 			String line = "";
 			while ((line = br.readLine()) != null) {
 				questionFromFile.add(line);
