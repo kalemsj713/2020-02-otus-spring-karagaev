@@ -9,5 +9,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>first-exercise</module>
+        <module>second-exercise</module>
     </modules>
 </project>
