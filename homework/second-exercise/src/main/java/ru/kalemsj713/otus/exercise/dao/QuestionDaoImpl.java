@@ -1,5 +1,8 @@
 package ru.kalemsj713.otus.exercise.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 import ru.kalemsj713.otus.exercise.domain.Question;
 
 import java.io.BufferedReader;
@@ -13,13 +16,14 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+@Repository
 public class QuestionDaoImpl implements QuestionDao {
 
 	private String fileName;
 	private static final Logger LOG = LoggerFactory.getLogger(QuestionDaoImpl.class);
 
-	public QuestionDaoImpl(String fileName) {
+	@Autowired
+	public QuestionDaoImpl(@Value("${exam.question.directory}/${exam.question.filename}") String fileName) {
 		this.fileName = fileName;
 	}
 
@@ -29,7 +33,7 @@ public class QuestionDaoImpl implements QuestionDao {
 		List<String> questionFromFile = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(
 				Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(fileName)), StandardCharsets.UTF_8))) {
-			String line = "";
+			String line;
 			while ((line = br.readLine()) != null) {
 				questionFromFile.add(line);
 			}

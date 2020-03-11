@@ -1,19 +1,29 @@
 package ru.kalemsj713.otus.exercise.service;
 
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import ru.kalemsj713.otus.exercise.dao.QuestionDao;
 import ru.kalemsj713.otus.exercise.domain.Question;
 
 import java.util.List;
 import java.util.Scanner;
 
+@Service
 public class ExamServiceImpl implements ExamService {
+
+	private final QuestionDao questionDao;
+	private final MessageService messageService;
+
 	private String examineeName;
 	private String examineeFamily;
-	private final QuestionDao questionDao;
+	private int result = 0;
+	@Value("${exam.question.count}")
+	private Integer sizePack;
 
-	public ExamServiceImpl(QuestionDao questionDao) {
+	public ExamServiceImpl(QuestionDao questionDao, MessageService messageService) {
 		this.questionDao = questionDao;
+		this.messageService = messageService;
 	}
 
 	@Override
@@ -24,40 +34,42 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	private void greeting() {
-		System.out.println("Hello, examinee.");
-		System.out.println("What is your name?");
+		messageService.printMessage("exam.message.hello");
+		messageService.printMessage("exam.message.name");
 		Scanner scanner = new Scanner(System.in);
 		examineeName = scanner.nextLine();
-		System.out.println("What is your surname?");
+		messageService.printMessage("exam.message.surname");
 		examineeFamily = scanner.nextLine();
-		System.out.println(String.format("%s %s, let's go exam!", examineeName, examineeFamily));
+		messageService.printMessage("exam.message.start", examineeName, examineeFamily);
 	}
-
-	private int result = 0;
 
 	private void quiz() {
 		List<Question> questionPack = questionDao.getQuestionPack();
+		if (sizePack > questionPack.size()) {
+			sizePack = questionPack.size();
+		}
 		Scanner scanner = new Scanner(System.in);
-		for (int i = 0; i < questionPack.size(); i++) {
+		for (int i = 0; i < sizePack; i++) {
 			Question question = questionPack.get(i);
-			System.out.println(String.format("Question #%d :%s", i + 1, question.getQuestionText()));
+			messageService.printMessage("exam.message.question", i + 1, question.getQuestionText());
 			for (int j = 0; j < question.getAnswers().size(); j++) {
-				System.out.println(String.format("Answer #%d: %s", j + 1, question.getAnswers().get(j)));
+				messageService.printMessage("exam.message.answer", j + 1, question.getAnswers().get(j));
 			}
-			System.out.println("Enter the number of the correct answer.");
+			messageService.printMessage("exam.message.enter");
 
 			if (scanner.hasNextInt() && scanner.nextInt() == question.getCorrectAnswerNumber()) {
 				result = result + 1;
-				System.out.println("Right.");
+				messageService.printMessage("exam.message.right");
 			} else {
-				System.out.println(String.format("Wrong! Correct answer is #%d: %s", question.getCorrectAnswerNumber() + 1, question.getAnswers().get(question.getCorrectAnswerNumber())));
+				messageService.printMessage("exam.message.wrong",
+						question.getCorrectAnswerNumber() + 1, question.getAnswers().get(question.getCorrectAnswerNumber()));
+
 			}
 		}
 	}
 
 	private void showResults() {
-		System.out.println(String.format("%s %s, test end.", examineeName, examineeFamily));
-		System.out.println(String.format("Your results: %d. Well done!", result));
-
+		messageService.printMessage("exam.message.end", examineeName, examineeFamily);
+		messageService.printMessage("exam.message.result", result, sizePack);
 	}
 }
