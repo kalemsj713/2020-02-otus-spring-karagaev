@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 @Repository
 public class QuestionDaoImpl implements QuestionDao {
 
-	private String fileName;
+	private final String fileName;
 	private static final Logger LOG = LoggerFactory.getLogger(QuestionDaoImpl.class);
 
 	@Autowired
