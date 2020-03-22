@@ -1,6 +1,8 @@
 package ru.kalemsj713.otus.exercise.service;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.kalemsj713.otus.exercise.dao.QuestionDao;
@@ -10,6 +12,8 @@ import java.util.List;
 import java.util.Scanner;
 
 @Service
+@Setter
+@Getter
 public class ExamServiceImpl implements ExamService {
 
 	private final QuestionDao questionDao;
@@ -18,15 +22,9 @@ public class ExamServiceImpl implements ExamService {
 	private String examineeName;
 	private String examineeFamily;
 
-	public void setExamineeName(String examineeName) {
-		this.examineeName = examineeName;
-	}
-
-	public void setExamineeFamily(String examineeFamily) {
-		this.examineeFamily = examineeFamily;
-	}
 
 	private int result = 0;
+
 	@Value("${exam.count}")
 	private Integer sizePack;
 
@@ -37,22 +35,27 @@ public class ExamServiceImpl implements ExamService {
 
 	@Override
 	public void exam() {
-		greeting();
 		quiz();
 		showResults();
 	}
 
-	private void greeting() {
+	@Override
+	public void greeting() {
 		messageService.printMessage("exam.message.hello");
 		messageService.printMessage("exam.message.name");
 		Scanner scanner = new Scanner(System.in);
 		examineeName = scanner.nextLine();
 		messageService.printMessage("exam.message.surname");
 		examineeFamily = scanner.nextLine();
-		messageService.printMessage("exam.message.start", examineeName, examineeFamily);
+	}
+
+	@Override
+	public boolean isExamAvailable() {
+		return examineeName != null && examineeFamily != null;
 	}
 
 	private void quiz() {
+		messageService.printMessage("exam.message.start", examineeName, examineeFamily);
 		List<Question> questionPack = questionDao.getQuestionPack();
 		if (sizePack > questionPack.size()) {
 			sizePack = questionPack.size();
@@ -80,5 +83,6 @@ public class ExamServiceImpl implements ExamService {
 	private void showResults() {
 		messageService.printMessage("exam.message.end", examineeName, examineeFamily);
 		messageService.printMessage("exam.message.result", result, sizePack);
+		result = 0;
 	}
 }

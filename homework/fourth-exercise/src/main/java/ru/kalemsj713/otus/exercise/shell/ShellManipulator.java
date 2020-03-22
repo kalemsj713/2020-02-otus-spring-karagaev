@@ -1,32 +1,38 @@
 package ru.kalemsj713.otus.exercise.shell;
 
-
 import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
-import org.springframework.shell.standard.ShellOption;
+import ru.kalemsj713.otus.exercise.service.ExamService;
+import ru.kalemsj713.otus.exercise.service.MessageService;
 
 @ShellComponent
 public class ShellManipulator {
 
-	private String userName;
+	private final ExamService examService;
+	private final MessageService messageService;
 
 
-	@ShellMethod(value = "Login command", key = {"l", "login"})
-	public String login(@ShellOption(defaultValue = "AnyUser") String userName) {
-		this.userName = userName;
-		return String.format("Добро пожаловать: %s", userName);
+	public ShellManipulator(ExamService examService, MessageService messageService) {
+		this.examService = examService;
+		this.messageService = messageService;
 	}
 
-	@ShellMethod(value = "Publish event command", key = {"p", "pub", "publish"})
-	@ShellMethodAvailability(value = "isPublishEventCommandAvailable")
-	public String publishEvent() {
-		return "Событие опубликовано";
-
+	@ShellMethod(value = "Greeting command", key = {"g", "gr", "greeting"})
+	public String greeting() {
+		examService.greeting();
+		return messageService.getMessage("exam.message.thanks");
 	}
 
-	private Availability isPublishEventCommandAvailable() {
-		return userName == null ? Availability.unavailable("Сначала залогиньтесь") : Availability.available();
+	@ShellMethod(value = "Start exam command", key = {"s", "st", "start"})
+	@ShellMethodAvailability(value = "isExamAvailable")
+	public void startExam() {
+		examService.exam();
+	}
+
+	private Availability isExamAvailable() {
+		return examService.isExamAvailable() ?
+				Availability.available() : Availability.unavailable(messageService.getMessage("exam.message.introduce"));
 	}
 }

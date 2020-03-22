@@ -1,0 +1,15 @@
+# Application properties
+exam:
+  count: 4
+  file: questions/questions
+
+spring:
+  messages:
+    basename: message
+    encoding: utf-8
+    fallback-to-system-locale: false
+  mvc:
+    locale: ru
+  shell:
+    interactive:
+      enabled: false
