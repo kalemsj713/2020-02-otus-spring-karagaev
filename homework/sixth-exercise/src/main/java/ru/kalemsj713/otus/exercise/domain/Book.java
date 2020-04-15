@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -33,6 +34,16 @@ public class Book {
 	@OneToMany(targetEntity = Comment.class, orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "book_id")
 	private List<Comment> comments;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Book book = (Book) o;
+		return getId() == book.getId() &&
+				Objects.equals(getTitle(), book.getTitle());
+	}
+
 
 
 	@Override

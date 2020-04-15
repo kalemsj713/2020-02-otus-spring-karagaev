@@ -25,6 +25,7 @@ public class ShellManipulator {
 
 	@ShellMethod(value = "add new author", key = {"aa"})
 	public void addAuthor(@ShellOption() String name) {
+
 		Author author = new Author();
 		author.setName(name);
 		authorDao.saveAuthor(author);
@@ -74,7 +75,6 @@ public class ShellManipulator {
 		System.out.println(genreDao.getGenre(id).orElseThrow());
 	}
 
-	////////
 	@ShellMethod(value = "add new book", key = {"ab"})
 	public void addBook(@ShellOption() String title) {
 		Book book = new Book();
@@ -129,12 +129,46 @@ public class ShellManipulator {
 	@ShellMethod(value = "delete comment ", key = {"dc"})
 	public void deleteComment(@ShellOption() long id) {
 		Comment comment = commentDao.getComment(id).orElseThrow();
- 		commentDao.deleteComment(comment);
+		commentDao.deleteComment(comment);
 	}
 
 	@ShellMethod(value = "get comment", key = {"gc"})
 	public void getComment(@ShellOption() long id) {
 		System.out.println(commentDao.getComment(id));
+	}
+
+
+	@ShellMethod(value = "add genre book", key = {"agb"})
+	public void addGenreToBook(@ShellOption() long bid, @ShellOption() long gid) {
+		Book book = bookDao.getBook(bid).orElseThrow();
+		Genre genre = genreDao.getGenre(gid).orElseThrow();
+		genre.getBooks().add(book);
+		genreDao.saveGenre(genre);
+	}
+
+	@ShellMethod(value = "add author book", key = {"aab"})
+	public void addAuthorToBook(@ShellOption() long bid, @ShellOption() long aid) {
+		Book book = bookDao.getBook(bid).orElseThrow();
+		Author author = authorDao.getAuthor(aid).orElseThrow();
+		author.getBooks().add(book);
+		authorDao.saveAuthor(author);
+	}
+
+	@ShellMethod(value = "delete genre book", key = {"dgb"})
+	public void deleteGenreToBook(@ShellOption() long bid, @ShellOption() long gid) {
+		Book book = bookDao.getBook(bid).orElseThrow();
+		Genre genre = genreDao.getGenre(gid).orElseThrow();
+		genre.getBooks().remove(book);
+		genre.getBooks().removeIf(b -> b.getId() == bid);
+		genreDao.saveGenre(genre);
+	}
+
+	@ShellMethod(value = "delete author book", key = {"dab"})
+	public void deleteAuthorToBook(@ShellOption() long bid, @ShellOption() long aid) {
+		Book book = bookDao.getBook(bid).orElseThrow();
+		Author author = authorDao.getAuthor(aid).orElseThrow();
+		author.getBooks().removeIf(b -> b.getId() == bid);
+		authorDao.saveAuthor(author);
 	}
 
 }

@@ -20,10 +20,6 @@ public class GenreDaoImpl implements GenreDao {
 
 	@Override
 	public Optional<Genre> getGenre(Long id) {
-//		TypedQuery<Genre> query = em.createQuery(
-//				"SELECT g FROM Genre g LEFT JOIN FETCH  g.books b where  g.id=:id", Genre.class);
-//		query.setParameter("id", id);
-//		return Optional.ofNullable(query.getSingleResult());
 		return Optional.ofNullable(em.find(Genre.class, id));
 
 	}

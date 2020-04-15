@@ -32,10 +32,10 @@ public class Genre {
 
 	@BatchSize(size = 100)
 
-	@ManyToMany(fetch = FetchType.EAGER,targetEntity = Book.class)
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Book.class)
 	@JoinTable(name = "books_genres",
-			joinColumns = @JoinColumn(name = "book_id",referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(name = "genre_id",referencedColumnName = "id"))
+			joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
 	private Set<Book> books;
 
 	@Override

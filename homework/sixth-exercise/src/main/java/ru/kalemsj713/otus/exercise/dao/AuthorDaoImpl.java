@@ -3,7 +3,6 @@ package ru.kalemsj713.otus.exercise.dao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kalemsj713.otus.exercise.domain.Author;
-import ru.kalemsj713.otus.exercise.domain.Book;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
