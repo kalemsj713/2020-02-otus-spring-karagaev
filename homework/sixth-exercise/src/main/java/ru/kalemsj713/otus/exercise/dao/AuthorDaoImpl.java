@@ -25,7 +25,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
 	@Override
 	public void deleteAuthor(Author author) {
- 		em.remove(em.contains(author) ? author : em.merge(author));
+		em.remove(em.contains(author) ? author : em.merge(author));
 	}
 
 	@Override

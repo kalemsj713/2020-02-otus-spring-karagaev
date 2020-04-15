@@ -19,12 +19,6 @@ public class BookDaoImpl implements BookDao {
 	private EntityManager em;
 
 	@Override
-	public int getBooksCount() {
-		return em.createQuery("select b from Book b", Book.class)
-				.getResultList().size();
-	}
-
-	@Override
 	public Optional<Book> getBook(Long id) {
 		return Optional.ofNullable(em.find(Book.class, id));
 
@@ -40,17 +34,20 @@ public class BookDaoImpl implements BookDao {
 		}
 	}
 
+	@Override
+	public void deleteBook(Book book) {
+		em.remove(em.contains(book) ? book : em.merge(book));
+	}
+
 	public List<Book> getAll() {
-		TypedQuery<Book> query = em.createQuery("select b from Book b join fetch b.comments", Book.class);
+		TypedQuery<Book> query = em.createQuery("select b from Book b left join fetch b.comments", Book.class);
 		return query.getResultList();
 	}
 
-
 	@Override
-	public void deleteBook(Book book) {
-		em.createQuery("delete from Book c where c.id =:id")
-				.setParameter("id", book.getId())
-				.executeUpdate();
+	public int getBooksCount() {
+		return em.createQuery("select b from Book b", Book.class)
+				.getResultList().size();
 	}
 
 

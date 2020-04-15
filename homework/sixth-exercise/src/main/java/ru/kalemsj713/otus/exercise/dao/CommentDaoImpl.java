@@ -22,9 +22,9 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public void deleteComment(Comment comment) {
+	public void deleteComment(long id) {
 		em.createQuery("delete from Comment c where c.id =:id")
-				.setParameter("id", comment.getId())
+				.setParameter("id", id)
 				.executeUpdate();
 	}
 

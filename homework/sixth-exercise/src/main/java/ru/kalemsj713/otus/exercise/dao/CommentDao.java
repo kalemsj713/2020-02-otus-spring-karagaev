@@ -11,7 +11,7 @@ public interface CommentDao {
 
 	Comment saveComment(Comment comment);
 
-	void deleteComment(Comment comment);
+	void deleteComment(long id);
 
 
 }

@@ -31,7 +31,7 @@ values (1, 1),
        (2, 3),
        (2, 1);
 
-insert into books_genres(book_id,genre_id )
+insert into books_genres(book_id, genre_id)
 values (1, 1),
        (1, 2),
        (2, 2),

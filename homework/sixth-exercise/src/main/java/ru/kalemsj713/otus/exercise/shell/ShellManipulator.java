@@ -25,9 +25,9 @@ public class ShellManipulator {
 
 	@ShellMethod(value = "add new author", key = {"aa"})
 	public void addAuthor(@ShellOption() String name) {
-
 		Author author = new Author();
 		author.setName(name);
+		author.setId(0L);
 		authorDao.saveAuthor(author);
 	}
 
@@ -53,6 +53,8 @@ public class ShellManipulator {
 	@ShellMethod(value = "add new genre", key = {"ag"})
 	public void addGenre(@ShellOption() String title) {
 		Genre genre = new Genre();
+		genre.setId(0L);
+
 		genre.setTitle(title);
 		genreDao.saveGenre(genre);
 	}
@@ -78,6 +80,8 @@ public class ShellManipulator {
 	@ShellMethod(value = "add new book", key = {"ab"})
 	public void addBook(@ShellOption() String title) {
 		Book book = new Book();
+		book.setId(0L);
+
 		book.setTitle(title);
 		bookDao.saveBook(book);
 	}
@@ -116,6 +120,7 @@ public class ShellManipulator {
 		Comment comment = new Comment();
 		comment.setBook(bookDao.getBook(bookId).orElseThrow());
 		comment.setText(text);
+		comment.setId(0L);
 		commentDao.saveComment(comment);
 	}
 
@@ -128,8 +133,7 @@ public class ShellManipulator {
 
 	@ShellMethod(value = "delete comment ", key = {"dc"})
 	public void deleteComment(@ShellOption() long id) {
-		Comment comment = commentDao.getComment(id).orElseThrow();
-		commentDao.deleteComment(comment);
+ 		commentDao.deleteComment(id);
 	}
 
 	@ShellMethod(value = "get comment", key = {"gc"})
