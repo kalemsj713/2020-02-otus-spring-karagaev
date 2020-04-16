@@ -1,6 +1,5 @@
 package ru.kalemsj713.otus.exercise.dao;
 
-import ru.kalemsj713.otus.exercise.domain.Book;
 import ru.kalemsj713.otus.exercise.domain.Comment;
 
 import java.util.List;
@@ -10,6 +9,8 @@ public interface CommentDao {
 	Optional<Comment> getComment(Long id);
 
 	Comment saveComment(Comment comment);
+
+	List<Comment> getComments(Long book_id);
 
 	void deleteComment(Long id);
 

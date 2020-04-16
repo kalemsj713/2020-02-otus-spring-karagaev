@@ -11,6 +11,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.kalemsj713.otus.exercise.domain.Comment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -55,5 +58,13 @@ class CommentDaoImplTest {
 		commentDao.deleteComment(1L);
 		val deletedComment = em.find(Comment.class, 1L);
 		assertThat(deletedComment).isNull();
+	}
+
+	@Test
+	void getComments() {
+		val comments = commentDao.getComments(2L);
+		val expected = em.find(Comment.class, 2L);
+		assertThat(comments).hasSize(1).containsOnly(expected);
+
 	}
 }

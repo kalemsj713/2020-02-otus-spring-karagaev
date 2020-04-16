@@ -29,7 +29,7 @@ public class Comment {
 	@Column(name = "text", nullable = false)
 	private String text;
 
-	@ManyToOne(targetEntity = Book.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "book_id", nullable = false, referencedColumnName = "id")
 	private Book book;
 
@@ -37,7 +37,6 @@ public class Comment {
 	public String toString() {
 		return "Comment{" +
 				"text='" + text + '\'' +
-				",bookName='" + book.getTitle()  + '\'' +
 				'}';
 	}
 }

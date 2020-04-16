@@ -137,6 +137,10 @@ public class ShellManipulator {
 		System.out.println(commentDao.getComment(id));
 	}
 
+	@ShellMethod(value = "get comments book", key = {"gcb"})
+	public void getComments(@ShellOption() long id) {
+		System.out.println(commentDao.getComments(id));
+	}
 
 	@ShellMethod(value = "add genre book", key = {"agb"})
 	public void addGenreToBook(@ShellOption() long bid, @ShellOption() long gid) {

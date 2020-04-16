@@ -22,7 +22,8 @@ insert into comments(book_id, text)
 values (1, 'комментарий1'),
        (2, 'комментарий2'),
        (3, 'комментарий3'),
-       (4, 'комментарий4');
+       (4, 'комментарий4'),
+       (1, 'комментарий5');
 
 insert into books_authors(book_id, author_id)
 values (1, 1),
