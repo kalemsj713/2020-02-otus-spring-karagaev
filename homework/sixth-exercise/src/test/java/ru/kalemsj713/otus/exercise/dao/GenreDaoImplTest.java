@@ -53,8 +53,7 @@ class GenreDaoImplTest {
 		val genre = em.find(Genre.class, 1L);
 		assertThat(genre).isNotNull();
 		em.detach(genre);
-		Genre genre1 = genreDao.getGenre(1L).orElseThrow();
-		genreDao.deleteGenre(genre1);
+ 		genreDao.deleteGenre(1L);
 		val deletedGenre = em.find(Genre.class, 1L);
 		assertThat(deletedGenre).isNull();
 	}

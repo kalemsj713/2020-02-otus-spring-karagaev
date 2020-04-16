@@ -1,12 +1,12 @@
 package ru.kalemsj713.otus.exercise.dao;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kalemsj713.otus.exercise.domain.Author;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.Optional;
 
 @Transactional
@@ -17,15 +17,15 @@ public class AuthorDaoImpl implements AuthorDao {
 
 	@Override
 	public Optional<Author> getAuthor(Long id) {
-		TypedQuery<Author> query = em.createQuery(
-				"SELECT a FROM Author a LEFT JOIN FETCH  a.books b where  a.id=:id", Author.class);
-		query.setParameter("id", id);
-		return Optional.ofNullable(query.getSingleResult());
+		Optional<Author> author = Optional.ofNullable(em.find(Author.class, id));
+		author.ifPresent(value -> Hibernate.initialize(value.getBooks()));
+		return author;
 	}
 
 	@Override
-	public void deleteAuthor(Author author) {
-		em.remove(em.contains(author) ? author : em.merge(author));
+	public void deleteAuthor(Long id) {
+		Author author = em.find(Author.class, id);
+		em.remove(author);
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package ru.kalemsj713.otus.exercise.dao;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kalemsj713.otus.exercise.domain.Author;
 import ru.kalemsj713.otus.exercise.domain.Comment;
 
 import javax.persistence.EntityManager;
@@ -16,16 +17,14 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public Optional<Comment> getComment(Long id) {
-		Comment comment =em.find(Comment.class, id);
-		System.out.println(comment);
+		Comment comment = em.find(Comment.class, id);
 		return Optional.ofNullable(comment);
 	}
 
 	@Override
-	public void deleteComment(long id) {
-		em.createQuery("delete from Comment c where c.id =:id")
-				.setParameter("id", id)
-				.executeUpdate();
+	public void deleteComment(Long id) {
+		Comment comment = em.find(Comment.class, id);
+		em.remove(comment);
 	}
 
 

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.BatchSize;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +33,7 @@ public class Genre {
 
 	@BatchSize(size = 100)
 
-	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Book.class)
+	@ManyToMany(targetEntity = Book.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinTable(name = "books_genres",
 			joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))

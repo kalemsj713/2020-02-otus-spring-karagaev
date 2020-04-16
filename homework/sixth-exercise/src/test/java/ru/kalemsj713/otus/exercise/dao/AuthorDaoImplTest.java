@@ -53,8 +53,7 @@ class AuthorDaoImplTest {
 		val author = em.find(Author.class, 1L);
 		assertThat(author).isNotNull();
 		em.detach(author);
-		Author author1 = authorDao.getAuthor(1L).orElseThrow();
-		authorDao.deleteAuthor(author1);
+ 		authorDao.deleteAuthor(1L);
 		val deletedAuthor = em.find(Author.class, 1L);
 		assertThat(deletedAuthor).isNull();
 	}

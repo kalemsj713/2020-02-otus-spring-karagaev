@@ -1,7 +1,10 @@
 package ru.kalemsj713.otus.exercise.dao;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kalemsj713.otus.exercise.domain.Author;
+import ru.kalemsj713.otus.exercise.domain.Book;
 import ru.kalemsj713.otus.exercise.domain.Book;
 
 import javax.persistence.EntityManager;
@@ -10,7 +13,6 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 @Repository
 
 public class BookDaoImpl implements BookDao {
@@ -18,12 +20,15 @@ public class BookDaoImpl implements BookDao {
 	@PersistenceContext
 	private EntityManager em;
 
+	@Transactional
 	@Override
 	public Optional<Book> getBook(Long id) {
-		return Optional.ofNullable(em.find(Book.class, id));
-
+		Optional<Book> book = Optional.ofNullable(em.find(Book.class, id));
+		book.ifPresent(value -> Hibernate.initialize(value.getComments()));
+		return book;
 	}
 
+	@Transactional
 	@Override
 	public Book saveBook(Book book) {
 		if (book.getId() <= 0) {
@@ -34,9 +39,11 @@ public class BookDaoImpl implements BookDao {
 		}
 	}
 
+	@Transactional
 	@Override
-	public void deleteBook(Book book) {
-		em.remove(em.contains(book) ? book : em.merge(book));
+	public void deleteBook(Long id) {
+		Book book = em.find(Book.class, id);
+		em.remove(book);
 	}
 
 	public List<Book> getAll() {
@@ -44,10 +51,10 @@ public class BookDaoImpl implements BookDao {
 		return query.getResultList();
 	}
 
+	@Transactional
 	@Override
 	public int getBooksCount() {
-		return em.createQuery("select b from Book b", Book.class)
-				.getResultList().size();
+		return getAll().size();
 	}
 
 

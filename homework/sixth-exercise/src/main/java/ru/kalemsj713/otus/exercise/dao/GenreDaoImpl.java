@@ -1,7 +1,9 @@
 package ru.kalemsj713.otus.exercise.dao;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kalemsj713.otus.exercise.domain.Author;
 import ru.kalemsj713.otus.exercise.domain.Book;
 import ru.kalemsj713.otus.exercise.domain.Genre;
 import ru.kalemsj713.otus.exercise.domain.Genre;
@@ -20,13 +22,15 @@ public class GenreDaoImpl implements GenreDao {
 
 	@Override
 	public Optional<Genre> getGenre(Long id) {
-		return Optional.ofNullable(em.find(Genre.class, id));
-
+		Optional<Genre> genre = Optional.ofNullable(em.find(Genre.class, id));
+		genre.ifPresent(value -> Hibernate.initialize(value.getBooks()));
+		return genre;
 	}
 
 	@Override
-	public void deleteGenre(Genre genre) {
-		em.remove(em.contains(genre) ? genre : em.merge(genre));
+	public void deleteGenre(Long id) {
+		Genre genre = em.find(Genre.class, id);
+		em.remove(genre);
 	}
 
 	@Override

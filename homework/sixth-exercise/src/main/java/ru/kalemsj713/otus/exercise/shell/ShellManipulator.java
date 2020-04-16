@@ -40,8 +40,7 @@ public class ShellManipulator {
 
 	@ShellMethod(value = "delete author ", key = {"da"})
 	public void deleteAuthor(@ShellOption() long id) {
-		Author author = authorDao.getAuthor(id).orElseThrow();
-		authorDao.deleteAuthor(author);
+ 		authorDao.deleteAuthor(id);
 	}
 
 	@ShellMethod(value = "get author", key = {"ga"})
@@ -68,8 +67,7 @@ public class ShellManipulator {
 
 	@ShellMethod(value = "delete genre ", key = {"dg"})
 	public void deleteGenre(@ShellOption() long id) {
-		Genre genre = genreDao.getGenre(id).orElseThrow();
-		genreDao.deleteGenre(genre);
+ 		genreDao.deleteGenre(id);
 	}
 
 	@ShellMethod(value = "get genre", key = {"gg"})
@@ -81,7 +79,6 @@ public class ShellManipulator {
 	public void addBook(@ShellOption() String title) {
 		Book book = new Book();
 		book.setId(0L);
-
 		book.setTitle(title);
 		bookDao.saveBook(book);
 	}
@@ -95,8 +92,7 @@ public class ShellManipulator {
 
 	@ShellMethod(value = "delete book ", key = {"db"})
 	public void deleteBook(@ShellOption() long id) {
-		Book book = bookDao.getBook(id).orElseThrow();
-		bookDao.deleteBook(book);
+ 		bookDao.deleteBook(id);
 	}
 
 	@ShellMethod(value = "get book", key = {"gb"})

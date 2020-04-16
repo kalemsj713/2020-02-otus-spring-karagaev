@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -31,7 +32,7 @@ public class Book {
 	private String title;
 
 
-	@OneToMany(targetEntity = Comment.class, orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = Comment.class, orphanRemoval = true, fetch = FetchType.LAZY )
 	@JoinColumn(name = "book_id")
 	private List<Comment> comments;
 

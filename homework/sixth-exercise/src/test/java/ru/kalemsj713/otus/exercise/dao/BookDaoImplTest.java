@@ -55,8 +55,7 @@ class BookDaoImplTest {
 		val book = em.find(Book.class, 1L);
 		assertThat(book).isNotNull();
 		em.detach(book);
-		Book book1 = bookDao.getBook(1L).orElseThrow();
-		bookDao.deleteBook(book1);
+ 		bookDao.deleteBook(1L);
 		val deletedBook = em.find(Book.class, 1L);
 		assertThat(deletedBook).isNull();
 	}
