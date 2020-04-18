@@ -12,5 +12,7 @@
         <module>second-exercise</module>
         <module>third-exercise</module>
         <module>fourth-exercise</module>
+        <module>fifth-exercise</module>
+        <module>sixth-exercise</module>
     </modules>
 </project>
