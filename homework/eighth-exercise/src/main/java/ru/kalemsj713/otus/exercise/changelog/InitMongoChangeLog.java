@@ -11,6 +11,7 @@ import ru.kalemsj713.otus.exercise.domain.Genre;
 
 import java.util.Set;
 
+@SuppressWarnings("unused")
 @ChangeLog(order = "001")
 public class InitMongoChangeLog {
     private Book book1;

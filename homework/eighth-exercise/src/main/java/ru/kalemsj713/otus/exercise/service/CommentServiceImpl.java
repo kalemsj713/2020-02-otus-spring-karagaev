@@ -38,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
         } else {
             comment.get().setText(text);
             commentRepository.save(comment.get());
-            return String.format("Comment saved:%s", comment);
+            return String.format("Comment saved:%s", comment.get());
         }
     }
     @Transactional
@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
         if (comment.isEmpty()) {
             return String.format("Comment with id:%s not found", id);
         } else {
-            return String.format("Founded comment:%s", comment);
+            return String.format("Founded comment:%s", comment.get());
         }
     }
 }

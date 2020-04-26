@@ -1,7 +1,6 @@
 package ru.kalemsj713.otus.exercise.repository;
 
 import ru.kalemsj713.otus.exercise.domain.Author;
-import ru.kalemsj713.otus.exercise.domain.Comment;
 import ru.kalemsj713.otus.exercise.domain.Genre;
 
 public interface BookCustomRepository {
@@ -10,9 +9,9 @@ public interface BookCustomRepository {
     void removeCommentArrayElementsById(String id);
 
     void removeGenreArrayElementsById(String id);
-    void setAuthorArrayElementsById(Author source);
-    void setGenreArrayElementsById(Genre source);
-    void setCommentArrayElementsById(Comment source);
 
+    void setAuthorArrayElementsById(Author source);
+
+    void setGenreArrayElementsById(Genre source);
 
 }

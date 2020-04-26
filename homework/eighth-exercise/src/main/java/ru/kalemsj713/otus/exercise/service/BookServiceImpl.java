@@ -8,7 +8,6 @@ import ru.kalemsj713.otus.exercise.domain.Book;
 import ru.kalemsj713.otus.exercise.domain.Genre;
 import ru.kalemsj713.otus.exercise.repository.AuthorRepository;
 import ru.kalemsj713.otus.exercise.repository.BookRepository;
-import ru.kalemsj713.otus.exercise.repository.CommentRepository;
 import ru.kalemsj713.otus.exercise.repository.GenreRepository;
 
 import java.util.List;
@@ -142,7 +141,7 @@ public class BookServiceImpl implements BookService {
         if (book.isPresent() && author.isPresent()) {
             book.get().getAuthors().remove(author.get());
             bookRepository.save(book.get());
-            return String.format("Book saved with new relation: %s", book.get());
+            return String.format("Book saved: %s", book.get());
         } else {
             if (book.isEmpty()) {
                 return String.format("Book with id:%s not found", bid);

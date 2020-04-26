@@ -3,6 +3,12 @@ spring:
     mongodb:
       port: 0
       database: test
+  shell:
+    interactive:
+      enabled: false
 logging:
   level:
     root: ERROR
+
+
+

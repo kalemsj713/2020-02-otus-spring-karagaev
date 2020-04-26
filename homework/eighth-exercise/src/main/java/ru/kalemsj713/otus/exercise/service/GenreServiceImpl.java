@@ -26,7 +26,7 @@ public class GenreServiceImpl implements GenreService {
         if (genre.isPresent()) {
             genre.get().setTitle(title);
             genreRepository.save(genre.get());
-            return String.format("genre saved: %s", genre.get());
+            return String.format("Genre saved: %s", genre.get());
         } else {
             return String.format("Genre with id:%s not found", id);
         }

@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import ru.kalemsj713.otus.exercise.domain.Author;
 import ru.kalemsj713.otus.exercise.domain.Book;
-import ru.kalemsj713.otus.exercise.domain.Comment;
 import ru.kalemsj713.otus.exercise.domain.Genre;
 
 @RequiredArgsConstructor
@@ -52,11 +51,5 @@ public class BookCustomRepositoryImpl implements BookCustomRepository {
         mongoTemplate.updateMulti(query, update, Book.class);
     }
 
-    @Override
-    public void setCommentArrayElementsById(Comment comment) {
-        val query = Query.query(Criteria.where("comments._id").is(comment.getId()));
-        val update = new Update().set("comments.$.text", comment.getText());
-        mongoTemplate.updateMulti(query, update, Book.class);
-    }
 
 }

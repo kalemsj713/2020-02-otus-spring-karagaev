@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface GenreRepository extends MongoRepository<Genre, String> {
     List<Genre> findGenresByTitle(String title);
-
 }
