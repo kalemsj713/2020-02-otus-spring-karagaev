@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <name>Genre information</name>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+
+        body {
+            padding: 50px;
+        }
+
+        .books, .books td {
+            border: 1px solid lightgray;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Genre Info:</h1>
+
+<div class="row">
+    <label>ID:</label>
+    <label th:text="${genre.id}"> </label>
+</div>
+
+<div class="row">
+    <label>Title:</label>
+    <label th:text="${genre.title}"> </label>
+</div>
+
+
+<div class="row">
+    <a th:href="@{/genre/edit(id=${genre.id})}">Edit</a>
+    <a th:href="@{/genre/delete(id=${genre.id})}">Delete</a>
+</div>
+<h1>Books: </h1>
+<table class="books">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="book : ${genre.getBooks()}">
+        <td th:text="${book.id}">1</td>
+        <td th:text="${book.title}">John Doe</td>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
