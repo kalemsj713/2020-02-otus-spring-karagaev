@@ -13,9 +13,9 @@ public interface BookService {
 
     void deleteBook(Long id);
 
-    Optional<Map<String, Object>> getBookFullInfoById(Long id);
-
     List<Book> findAll();
+
+    Optional<Map<String, Object>> getBookFullInfoById(Long id);
 
     Optional<Book> getBookById(long id);
 }

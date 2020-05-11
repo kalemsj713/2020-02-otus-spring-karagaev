@@ -1,6 +1,7 @@
 package ru.kalemsj713.otus.exercise.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,12 +22,10 @@ import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Getter
-@Setter
 @Table(name = "authors")
 
 public class Author {
@@ -50,4 +49,12 @@ public class Author {
     }
 
 
+    public Author(long id, String name) {
+        this.name = name;
+        this.id = id;
+    }
+    public Author(  String name, List<Book>books) {
+        this.name = name;
+        this.books = books;
+    }
 }

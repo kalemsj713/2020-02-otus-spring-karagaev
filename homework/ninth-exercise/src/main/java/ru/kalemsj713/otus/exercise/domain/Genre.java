@@ -1,6 +1,7 @@
 package ru.kalemsj713.otus.exercise.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,9 +25,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Getter
-@Setter
 @Table(name = "genres")
+@Data
 
 public class Genre {
     @Id
@@ -50,4 +50,8 @@ public class Genre {
     }
 
 
+    public Genre(long id, String title) {
+        this.title = title;
+        this.id = id;
+    }
 }

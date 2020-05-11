@@ -9,15 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-import ru.kalemsj713.otus.exercise.domain.Author;
 import ru.kalemsj713.otus.exercise.domain.Book;
-import ru.kalemsj713.otus.exercise.domain.Genre;
-import ru.kalemsj713.otus.exercise.service.AuthorService;
 import ru.kalemsj713.otus.exercise.service.BookService;
-import ru.kalemsj713.otus.exercise.service.GenreService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("book")
@@ -26,8 +21,6 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
-    private final AuthorService authorService;
-    private final GenreService genreService;
 
     @GetMapping("/new")
     public String create(Model model) {
@@ -72,7 +65,7 @@ public class BookController {
 
     @GetMapping
     public String show(@RequestParam("id") long id, Model model) {
-         model.addAllAttributes(bookService.getBookFullInfoById(id).orElseThrow(NotFoundException::new));
+        model.addAllAttributes(bookService.getBookFullInfoById(id).orElseThrow(NotFoundException::new));
         return "book/show";
     }
 }

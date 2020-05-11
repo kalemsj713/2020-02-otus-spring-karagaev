@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-import ru.kalemsj713.otus.exercise.domain.Genre;
 import ru.kalemsj713.otus.exercise.domain.Book;
-import ru.kalemsj713.otus.exercise.service.GenreService;
+import ru.kalemsj713.otus.exercise.domain.Genre;
 import ru.kalemsj713.otus.exercise.service.BookService;
+import ru.kalemsj713.otus.exercise.service.GenreService;
 
 import javax.validation.Valid;
 import java.util.List;

@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.kalemsj713.otus.exercise.domain.Author;
 import ru.kalemsj713.otus.exercise.domain.Book;
 import ru.kalemsj713.otus.exercise.domain.Genre;
@@ -23,7 +21,6 @@ public class LibraryController {
     private final BookService bookService;
     private final AuthorService authorService;
     private final GenreService genreService;
-    private final CommentService commentService;
 
 
     @GetMapping("/")
@@ -37,21 +34,5 @@ public class LibraryController {
         return "list";
     }
 
-//    @GetMapping("/editBook")
-//    public String editBook(@RequestParam("id") long id, Model model) {
-//        Book book = bookService.getBookById(id).orElseThrow(ru.kalemsj713.otus.exercise.rest.NotFoundException::new);
-//        model.addAttribute("book", book);
-//        model.addAttribute("entityType", "book");
-//        return "edit";
-//    }
 
-//    @PostMapping("/edit")
-//    public String savePerson(
-//            Person person,
-//            Model model
-//                            ) {
-//        Person saved = repository.save(person);
-//        model.addAttribute(saved);
-//        return "edit";
-//    }
 }

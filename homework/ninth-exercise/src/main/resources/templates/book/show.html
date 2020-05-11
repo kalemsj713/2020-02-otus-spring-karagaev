@@ -76,7 +76,6 @@
         <td th:text="${comment.id}">1</td>
         <td th:text="${comment.text}">John Doe</td>
         <td>
-            <a th:href="@{/comment/edit(id=${comment.id},bookId=${book.id})}" href="edit.html">Edit</a>
             <a th:href="@{/comment/delete(id=${comment.id},bookId=${book.id})}" href="delete.html">Delete</a>
 
         </td>

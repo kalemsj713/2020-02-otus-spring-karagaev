@@ -24,7 +24,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public Optional<Comment> addNewComment(String text, long bookId) {
-        Optional<Book> book = bookRepository.findBookById(bookId);
+        Optional<Book> book = bookRepository.findById(bookId);
         if (book.isEmpty()) {
             return Optional.empty();
         }

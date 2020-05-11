@@ -2,6 +2,7 @@ package ru.kalemsj713.otus.exercise.domain;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,10 +22,8 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Getter
-@Setter
 @Table(name = "comments")
-
+@Data
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,4 +42,13 @@ public class Comment {
     }
 
 
+    public Comment(long id, String text) {
+        this.text = text;
+        this.id = id;
+    }
+
+    public Comment(String text, Book book) {
+        this.text = text;
+        this.book = book;
+    }
 }

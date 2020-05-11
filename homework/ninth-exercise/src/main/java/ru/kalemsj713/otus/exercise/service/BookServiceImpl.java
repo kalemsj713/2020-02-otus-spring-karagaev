@@ -9,7 +9,7 @@ import ru.kalemsj713.otus.exercise.domain.Genre;
 import ru.kalemsj713.otus.exercise.repository.AuthorRepository;
 import ru.kalemsj713.otus.exercise.repository.BookRepository;
 import ru.kalemsj713.otus.exercise.repository.GenreRepository;
- 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,21 +28,18 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book saveBook(Book book) {
         return bookRepository.save(book);
-
     }
 
     @Override
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
-
-
     }
 
     @Transactional
     @Override
     public Optional<Map<String, Object>> getBookFullInfoById(Long id) {
         Map<String, Object> model = new HashMap<>();
-        Optional<Book> book = bookRepository.findBookById(id);
+        Optional<Book> book = bookRepository.findById(id);
         if (book.isPresent()) {
             model.put("book", book.get());
             List<Author> authors = authorRepository.findAllByBooks(book.get());

@@ -10,13 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 import ru.kalemsj713.otus.exercise.domain.Author;
-import ru.kalemsj713.otus.exercise.domain.Author;
 import ru.kalemsj713.otus.exercise.domain.Book;
-import ru.kalemsj713.otus.exercise.domain.Genre;
-import ru.kalemsj713.otus.exercise.service.AuthorService;
 import ru.kalemsj713.otus.exercise.service.AuthorService;
 import ru.kalemsj713.otus.exercise.service.BookService;
-import ru.kalemsj713.otus.exercise.service.GenreService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,7 +31,6 @@ public class AuthorController {
         model.addAttribute("author", new Author());
         List<Book> books = bookService.findAll();
         model.addAttribute("allBooks", books);
-
         return "author/new";
     }
 
@@ -85,7 +80,6 @@ public class AuthorController {
     public String show(@RequestParam("id") long id, Model model) {
         Author author = authorService.getAuthorById(id).orElseThrow(NotFoundException::new);
         model.addAttribute("author", author);
-
         return "author/show";
     }
 
