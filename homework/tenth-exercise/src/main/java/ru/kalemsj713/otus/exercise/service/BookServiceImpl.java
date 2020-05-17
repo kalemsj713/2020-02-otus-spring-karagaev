@@ -6,6 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kalemsj713.otus.exercise.domain.Author;
 import ru.kalemsj713.otus.exercise.domain.Book;
 import ru.kalemsj713.otus.exercise.domain.Genre;
+import ru.kalemsj713.otus.exercise.dto.AuthorDTO;
+import ru.kalemsj713.otus.exercise.dto.BookDTO;
+import ru.kalemsj713.otus.exercise.dto.CommentDTO;
+import ru.kalemsj713.otus.exercise.dto.GenreDTO;
 import ru.kalemsj713.otus.exercise.repository.AuthorRepository;
 import ru.kalemsj713.otus.exercise.repository.BookRepository;
 import ru.kalemsj713.otus.exercise.repository.GenreRepository;
@@ -14,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -50,13 +55,23 @@ public class BookServiceImpl implements BookService {
         } else {
             return Optional.empty();
         }
-
     }
 
+    @Override
+    public BookDTO getBookInfoById(Long id) {
+        Optional<Book> book = bookRepository.findById(id);
+        BookDTO bookDTO = new BookDTO(book.orElseThrow());
+        List<Author> authors = authorRepository.findAllByBooks(book.get());
+        List<Genre> genres = genreRepository.findAllByBooks(book.get());
+        bookDTO.setAuthors(authors.stream().map(AuthorDTO::new).collect(Collectors.toList()));
+        bookDTO.setGenres(genres.stream().map(GenreDTO::new).collect(Collectors.toList()));
+        return bookDTO;
+    }
 
     @Override
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public List<BookDTO> findAll() {
+        List<Book> books = bookRepository.findAll();
+        return books.stream().map(BookDTO::new).collect(Collectors.toList());
     }
 
     @Override
@@ -64,5 +79,11 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findById(id);
     }
 
+    @Override
+    public void updateTitle(BookDTO bookDTO) {
+        Book bookToUpdate = bookRepository.getOne(bookDTO.getId());
+        bookToUpdate.setTitle(bookDTO.getTitle());
+        bookRepository.save(bookToUpdate);
+    }
 
 }

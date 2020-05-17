@@ -1,4 +1,4 @@
-package ru.kalemsj713.otus.exercise.rest;
+package ru.kalemsj713.otus.exercise.controller.view;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 import ru.kalemsj713.otus.exercise.domain.Author;
-import ru.kalemsj713.otus.exercise.domain.Book;
+import ru.kalemsj713.otus.exercise.dto.BookDTO;
 import ru.kalemsj713.otus.exercise.service.AuthorService;
 import ru.kalemsj713.otus.exercise.service.BookService;
 
@@ -29,7 +29,7 @@ public class AuthorController {
     @GetMapping("/new")
     public String create(Model model) {
         model.addAttribute("author", new Author());
-        List<Book> books = bookService.findAll();
+        List<BookDTO> books = bookService.findAll();
         model.addAttribute("allBooks", books);
         return "author/new";
     }
@@ -38,7 +38,7 @@ public class AuthorController {
     public String create(@Valid Author author, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("author", author);
-            List<Book> books = bookService.findAll();
+            List<BookDTO> books = bookService.findAll();
             model.addAttribute("allBooks", books);
             return "author/new";
         }
@@ -51,7 +51,7 @@ public class AuthorController {
         Author author = authorService.getAuthorById(id).orElseThrow(NotFoundException::new);
 
         model.addAttribute("author", author);
-        List<Book> books = bookService.findAll();
+        List<BookDTO> books = bookService.findAll();
         model.addAttribute("allBooks", books);
         return "author/edit";
     }
@@ -60,7 +60,7 @@ public class AuthorController {
     public String saveAuthor(@Valid Author author, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("author", author);
-            List<Book> books = bookService.findAll();
+            List<BookDTO> books = bookService.findAll();
             model.addAttribute("allBooks", books);
             return "author/edit";
         }
@@ -73,7 +73,6 @@ public class AuthorController {
     public RedirectView delete(@RequestParam("id") long id) {
         authorService.deleteAuthor(id);
         return new RedirectView("/");
-
     }
 
     @GetMapping

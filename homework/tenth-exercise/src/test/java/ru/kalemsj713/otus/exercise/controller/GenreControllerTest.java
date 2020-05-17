@@ -1,4 +1,4 @@
-package ru.kalemsj713.otus.exercise.rest;
+package ru.kalemsj713.otus.exercise.controller;
 
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +11,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import ru.kalemsj713.otus.exercise.controller.view.GenreController;
 import ru.kalemsj713.otus.exercise.domain.Genre;
 import ru.kalemsj713.otus.exercise.domain.Book;
+import ru.kalemsj713.otus.exercise.dto.BookDTO;
 import ru.kalemsj713.otus.exercise.service.GenreService;
 import ru.kalemsj713.otus.exercise.service.BookService;
 
@@ -60,7 +62,7 @@ class GenreControllerTest {
 
     @Test
     void create() throws Exception {
-        Book book = new Book(1L, "title1");
+        BookDTO book = new BookDTO(1L, "title1");
         when(bookService.findAll()).thenReturn(Collections.singletonList(book));
         mvc.perform(get("/genre/new"))
                 .andExpect(status().isOk())
@@ -94,7 +96,7 @@ class GenreControllerTest {
 
     @Test
     void edit() {
-        Book book = new Book(1L, "title1");
+        BookDTO book = new BookDTO(1L, "title1");
         when(bookService.findAll()).thenReturn(Collections.singletonList(book));
         mvc.perform(get("/genre/edit?id=1"))
                 .andExpect(status().isOk())

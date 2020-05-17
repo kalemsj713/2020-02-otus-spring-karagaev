@@ -1,4 +1,4 @@
-package ru.kalemsj713.otus.exercise.rest;
+package ru.kalemsj713.otus.exercise.controller;
 
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import ru.kalemsj713.otus.exercise.controller.view.BookViewController;
 import ru.kalemsj713.otus.exercise.domain.Book;
 import ru.kalemsj713.otus.exercise.service.BookService;
 
@@ -28,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(BookController.class)
+@WebMvcTest(BookViewController.class)
 class BookControllerTest {
     @Autowired
     private MockMvc mvc;

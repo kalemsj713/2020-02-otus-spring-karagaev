@@ -1,4 +1,4 @@
-package ru.kalemsj713.otus.exercise.rest;
+package ru.kalemsj713.otus.exercise.controller.view;
 
 class NotFoundException extends RuntimeException {
 

@@ -2,9 +2,7 @@ package ru.kalemsj713.otus.exercise.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.CascadeType;
@@ -18,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +31,6 @@ public class Genre {
     private long id;
 
     @Column(name = "title", nullable = false)
-    @NotEmpty(message = "Please provide a title")
     private String title;
 
     @BatchSize(size = 100)
@@ -44,11 +40,9 @@ public class Genre {
             inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))
     private List<Book> books = new ArrayList<>();
 
-
     public Genre(String title) {
         this.title = title;
     }
-
 
     public Genre(long id, String title) {
         this.title = title;

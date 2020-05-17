@@ -1,4 +1,4 @@
-package ru.kalemsj713.otus.exercise.rest;
+package ru.kalemsj713.otus.exercise.controller.view;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-import ru.kalemsj713.otus.exercise.domain.Book;
 import ru.kalemsj713.otus.exercise.domain.Genre;
+import ru.kalemsj713.otus.exercise.dto.BookDTO;
 import ru.kalemsj713.otus.exercise.service.BookService;
 import ru.kalemsj713.otus.exercise.service.GenreService;
 
@@ -29,9 +29,8 @@ public class GenreController {
     @GetMapping("/new")
     public String create(Model model) {
         model.addAttribute("genre", new Genre());
-        List<Book> books = bookService.findAll();
+        List<BookDTO> books = bookService.findAll();
         model.addAttribute("allBooks", books);
-
         return "genre/new";
     }
 
@@ -39,7 +38,7 @@ public class GenreController {
     public String create(@Valid Genre genre, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("genre", genre);
-            List<Book> books = bookService.findAll();
+            List<BookDTO> books = bookService.findAll();
             model.addAttribute("allBooks", books);
             return "genre/new";
         }
@@ -50,9 +49,8 @@ public class GenreController {
     @GetMapping("/edit")
     public String edit(@RequestParam("id") long id, Model model) {
         Genre genre = genreService.getGenreById(id).orElseThrow(NotFoundException::new);
-        List<Book> books = bookService.findAll();
+        List<BookDTO> books = bookService.findAll();
         model.addAttribute("allBooks", books);
-
         model.addAttribute("genre", genre);
         return "genre/edit";
     }
@@ -61,7 +59,7 @@ public class GenreController {
     public String saveGenre(@Valid Genre genre, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("genre", genre);
-            List<Book> books = bookService.findAll();
+            List<BookDTO> books = bookService.findAll();
             model.addAttribute("allBooks", books);
             return "genre/edit";
         }
@@ -81,7 +79,6 @@ public class GenreController {
     public String show(@RequestParam("id") long id, Model model) {
         Genre genre = genreService.getGenreById(id).orElseThrow(NotFoundException::new);
         model.addAttribute("genre", genre);
-
         return "genre/show";
     }
 

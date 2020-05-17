@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kalemsj713.otus.exercise.domain.Book;
 import ru.kalemsj713.otus.exercise.domain.Comment;
+import ru.kalemsj713.otus.exercise.dto.CommentDTO;
 import ru.kalemsj713.otus.exercise.repository.BookRepository;
 import ru.kalemsj713.otus.exercise.repository.CommentRepository;
 
@@ -31,6 +32,12 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = new Comment(text);
         comment.setBook(book.get());
         return Optional.of(commentRepository.save(comment));
+    }
+
+    @Override
+    public CommentDTO addNewComment(CommentDTO commentDTO) {
+        Optional<Comment> comment = addNewComment(commentDTO.getText(), commentDTO.getBookId());
+        return new CommentDTO(comment.orElseThrow());
     }
 
 }

@@ -1,4 +1,4 @@
-package ru.kalemsj713.otus.exercise.rest;
+package ru.kalemsj713.otus.exercise.controller.view;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,9 +16,8 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("book")
-
 @RequiredArgsConstructor
-public class BookController {
+public class BookViewController {
 
     private final BookService bookService;
 
@@ -60,12 +59,11 @@ public class BookController {
     public RedirectView delete(@RequestParam("id") long id) {
         bookService.deleteBook(id);
         return new RedirectView("/");
-
     }
 
     @GetMapping
     public String show(@RequestParam("id") long id, Model model) {
-        model.addAllAttributes(bookService.getBookFullInfoById(id).orElseThrow(NotFoundException::new));
+//        model.addAllAttributes(bookService.getBookFullInfoById(id).orElseThrow(NotFoundException::new));
         return "book/show";
     }
 }

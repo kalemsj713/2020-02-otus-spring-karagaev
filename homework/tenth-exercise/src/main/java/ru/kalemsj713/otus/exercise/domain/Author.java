@@ -16,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +24,12 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "authors")
-
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "name", nullable = false)
-    @NotEmpty(message = "Please provide a name")
     private String name;
 
     @BatchSize(size = 100)
