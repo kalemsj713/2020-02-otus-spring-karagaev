@@ -72,34 +72,7 @@ class BookControllerTest {
         verifyNoMoreInteractions(bookService);
     }
 
-    @SneakyThrows
 
-    @Test
-    void edit() {
-        Book book = new Book(1L, "title1");
-        mvc.perform(get("/book/edit?id=1"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("book/edit"))
-                .andExpect(model().attribute("book", new Book(1L, "title1")));
-
-        verify(bookService, times(1)).getBookById(1L);
-        verifyNoMoreInteractions(bookService);
-
-    }
-
-    @SneakyThrows
-    @Test
-    void saveBook() {
-        Book book = new Book(1L, "1234");
-
-        mvc.perform(post("/book/edit?id=1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .flashAttr("book", book))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/book?id=1"));
-        verify(bookService, times(1)).saveBook(book);
-        verifyNoMoreInteractions(bookService);
-    }
 
     @SneakyThrows
     @Test
@@ -112,15 +85,5 @@ class BookControllerTest {
         verifyNoMoreInteractions(bookService);
     }
 
-    @SneakyThrows
-    @Test
-    void show() {
-        mvc.perform(get("/book?id=1"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("book/show"))
-                .andExpect(model().attribute("book", new Book(1L, "title1")));
 
-        verify(bookService, times(1)).getBookFullInfoById(1L);
-        verifyNoMoreInteractions(bookService);
-    }
 }
