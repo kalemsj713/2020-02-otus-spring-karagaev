@@ -8,7 +8,6 @@ import ru.kalemsj713.otus.exercise.domain.Book;
 import ru.kalemsj713.otus.exercise.domain.Genre;
 import ru.kalemsj713.otus.exercise.dto.AuthorDTO;
 import ru.kalemsj713.otus.exercise.dto.BookDTO;
-import ru.kalemsj713.otus.exercise.dto.CommentDTO;
 import ru.kalemsj713.otus.exercise.dto.GenreDTO;
 import ru.kalemsj713.otus.exercise.repository.AuthorRepository;
 import ru.kalemsj713.otus.exercise.repository.BookRepository;
@@ -26,7 +25,6 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
     private final GenreRepository genreRepository;
-
     private final AuthorRepository authorRepository;
 
     @Transactional

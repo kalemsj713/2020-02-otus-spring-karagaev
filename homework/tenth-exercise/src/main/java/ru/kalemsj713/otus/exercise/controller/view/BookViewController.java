@@ -62,8 +62,7 @@ public class BookViewController {
     }
 
     @GetMapping
-    public String show(@RequestParam("id") long id, Model model) {
-//        model.addAllAttributes(bookService.getBookFullInfoById(id).orElseThrow(NotFoundException::new));
+    public String show() {
         return "book/show";
     }
 }

@@ -24,7 +24,6 @@ public class AuthorDTO {
     public AuthorDTO(Author author) {
         this.id = author.getId();
         this.name = author.getName();
-
         this.books = author.getBooks().stream().map(BookDTO::new).collect(Collectors.toList());
     }
 

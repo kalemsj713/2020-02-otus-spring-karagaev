@@ -16,8 +16,8 @@ public interface BookService {
     List<BookDTO> findAll();
 
     Optional<Map<String, Object>> getBookFullInfoById(Long id);
-    BookDTO getBookInfoById(Long id);
 
+    BookDTO getBookInfoById(Long id);
 
     Optional<Book> getBookById(long id);
 
