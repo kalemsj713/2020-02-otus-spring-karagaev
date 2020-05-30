@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/header.html">
+    <meta charset="UTF-8"/>
+    <title th:text="|Author creating|">Edit entity</title>
+</head>
+<body>
+<div class="container">
+    <h1>Author Create:</h1>
+
+    <form id="edit-form" th:action="@{/author/new}" th:object="${author}" th:method="post"
+          action="new.html">
+
+
+        <div class="form-group">
+            <label for="holder-input">Name:</label>
+            <input id="holder-input"   class="form-control" name="name" type="text" th:value="${author.name}" value="John Doe"/>
+            <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="${author.name}">author
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="book-select">Books</label>
+            <select id="book-select" th:field="*{books}" size="10" class="selectpicker" multiple="multiple">
+                <option th:each="book : ${allBooks}"
+                        th:value="${book.id}"
+                        th:text="${book.title}">
+                </option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/header.html">
+    <meta charset="UTF-8"/>
+    <title>Author information</title>
+</head>
+<body>
+<div class="container">
+
+    <h1>Author Info:</h1>
+
+    <div class="form-group">
+        <label>ID:</label>
+        <label th:text="${author.id}"> </label>
+    </div>
+
+    <div class="form-group">
+        <label>Title:</label>
+        <label th:text="${author.name}"> </label>
+    </div>
+
+
+    <div class="form-group">
+        <a class="btn btn-primary" th:href="@{/author/edit(id=${author.id})}" href="#" role="button">Edit</a>
+        <a class="btn btn-danger" th:href="@{/author/delete(id=${author.id})}" href="#" role="button">Delete</a>
+
+    </div>
+    <h1>Books: </h1>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="book : ${author.getBooks()}">
+            <td th:text="${book.id}">1</td>
+            <td th:text="${book.title}">John Doe</td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
