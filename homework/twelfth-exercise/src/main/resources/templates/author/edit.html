@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="|Author editing|">Edit entity</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+
+    <form id="edit-form" th:action="@{/author/edit}" th:object="${author}" th:method="post" action="edit.html">
+        <h1>Author Info:</h1>
+
+        <div class="form-group">
+            <label>ID:</label>
+
+            <label th:text="${author.id}"> id </label>
+            <input id="id-input" type="hidden" readonly="readonly" th:field="${author.id}" placeholder="Id"
+                   value="1"/>
+        </div>
+
+        <div class="form-group">
+            <label for="holder-input">Text:</label>
+            <input id="holder-input"  class="form-control" name="name" type="text" th:value="${author.name}" value="John Doe"/>
+
+            <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors="${author.name}">
+                author Error</small>
+        </div>
+
+        <div class="form-group">
+            <label for="book-select">Books</label>
+            <select id="book-select" th:field="*{books}" size="3"  class="selectpicker" multiple="multiple">
+                <option th:each="book : ${allBooks}"
+                        th:value="${book.id}"
+                        th:text="${book.title}">
+                </option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+
+    </form>
+</div>
+</body>
+</html>
