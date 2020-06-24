@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -16,11 +17,6 @@ import ru.kalemsj713.otus.exercise.domain.Comment;
 import ru.kalemsj713.otus.exercise.service.BookService;
 import ru.kalemsj713.otus.exercise.service.CommentService;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -45,15 +41,15 @@ class CommentControllerTest {
     @BeforeEach
     void setUp() {
 
-        Comment expected = new Comment(1L,"text");
+        Comment expected = new Comment(1L, "text");
         Book book = new Book(1L, "title1");
         expected.setBook(book);
         when(bookService.getBookById(1L)).thenReturn(java.util.Optional.of(new Book(1L, "title1")));
-        when(commentService.addNewComment("text",1L )).thenReturn(java.util.Optional.of(expected));
+        when(commentService.addNewComment("text", 1L)).thenReturn(java.util.Optional.of(expected));
 
     }
 
-
+    @WithMockUser(username = "petrov", authorities = {"admin"})
     @Test
     void create() throws Exception {
         mvc.perform(get("/comment/new?bookId=1"))
@@ -64,6 +60,7 @@ class CommentControllerTest {
         verifyNoMoreInteractions(bookService);
     }
 
+    @WithMockUser(username = "petrov", authorities = {"admin"})
     @SneakyThrows
     @Test
     void postCreate() {
@@ -75,11 +72,11 @@ class CommentControllerTest {
                 .flashAttr("comment", expected))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/book?id=1"));
-        verify(commentService, times(1)).addNewComment("text",1L);
+        verify(commentService, times(1)).addNewComment("text", 1L);
         verifyNoMoreInteractions(commentService);
     }
 
-
+    @WithMockUser(username = "petrov", authorities = {"admin"})
     @SneakyThrows
     @Test
     void delete() {

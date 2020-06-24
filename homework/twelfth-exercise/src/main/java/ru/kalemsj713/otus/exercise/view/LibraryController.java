@@ -31,6 +31,4 @@ public class LibraryController {
         model.addAttribute("authors", authors);
         return "list";
     }
-
-
 }

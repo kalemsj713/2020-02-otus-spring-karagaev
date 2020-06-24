@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -17,11 +18,6 @@ import ru.kalemsj713.otus.exercise.service.BookService;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -40,7 +36,9 @@ class BookControllerTest {
     @MockBean
     private BookService bookService;
 
-
+    @WithMockUser(
+            username = "petrov",
+            authorities = {"admin"})
     @BeforeEach
     void setUp() {
         Book expected = new Book("title1");
@@ -51,12 +49,14 @@ class BookControllerTest {
         when(bookService.saveBook(expected)).thenReturn(book);
         when(bookService.getBookById(1L)).thenReturn(java.util.Optional.of(new Book(1L, "title1")));
         Map<String, Object> model = new HashMap<>();
-        model.put("book",book);
+        model.put("book", book);
 
         when(bookService.getBookFullInfoById(1L)).thenReturn(java.util.Optional.of(model));
     }
 
-
+    @WithMockUser(
+            username = "petrov",
+            authorities = {"admin"})
     @Test
     void create() throws Exception {
         mvc.perform(get("/book/new"))
@@ -79,7 +79,7 @@ class BookControllerTest {
     }
 
     @SneakyThrows
-
+    @WithMockUser(username = "petrov", authorities = {"admin"})
     @Test
     void edit() {
         Book book = new Book(1L, "title1");
@@ -94,6 +94,7 @@ class BookControllerTest {
     }
 
     @SneakyThrows
+    @WithMockUser(username = "petrov", authorities = {"admin"})
     @Test
     void saveBook() {
         Book book = new Book(1L, "1234");
@@ -107,6 +108,7 @@ class BookControllerTest {
         verifyNoMoreInteractions(bookService);
     }
 
+    @WithMockUser(username = "petrov", authorities = {"admin"})
     @SneakyThrows
     @Test
     void delete() {
@@ -119,6 +121,7 @@ class BookControllerTest {
     }
 
     @SneakyThrows
+    @WithMockUser(username = "petrov", authorities = {"admin"})
     @Test
     void show() {
         mvc.perform(get("/book?id=1"))

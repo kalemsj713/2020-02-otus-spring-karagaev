@@ -25,6 +25,19 @@ values (1, 'комментарий1'),
        (4, 'комментарий4'),
        (1, 'комментарий5');
 
+insert into users(fio, login, password, is_active)
+values ('Петров Петр Петрович', 'petrov', '123123', 'T'),
+       ('Пупкин Василий Петрович', 'pupkin', '000000', 'T');
+
+insert into roles(name)
+values ('admin'),
+       ('reader');
+
+insert into users_roles(user_id, role_id)
+values (1, 1),
+       (1, 2),
+       (2, 2);
+
 insert into books_authors(book_id, author_id)
 values (1, 1),
        (1, 2),

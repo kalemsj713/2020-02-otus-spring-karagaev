@@ -72,7 +72,6 @@ public class GenreController {
     public RedirectView delete(@RequestParam("id") long id) {
         genreService.deleteGenre(id);
         return new RedirectView("/");
-
     }
 
     @GetMapping

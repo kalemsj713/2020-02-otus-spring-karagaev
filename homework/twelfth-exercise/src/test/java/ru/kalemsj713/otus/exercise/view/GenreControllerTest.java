@@ -8,13 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import ru.kalemsj713.otus.exercise.domain.Genre;
 import ru.kalemsj713.otus.exercise.domain.Book;
-import ru.kalemsj713.otus.exercise.service.GenreService;
+import ru.kalemsj713.otus.exercise.domain.Genre;
 import ru.kalemsj713.otus.exercise.service.BookService;
+import ru.kalemsj713.otus.exercise.service.GenreService;
 
 import java.util.Collections;
 
@@ -57,7 +58,7 @@ class GenreControllerTest {
 
     }
 
-
+    @WithMockUser(username = "petrov", authorities = {"admin"})
     @Test
     void create() throws Exception {
         Book book = new Book(1L, "title1");
@@ -75,6 +76,7 @@ class GenreControllerTest {
         verifyNoMoreInteractions(bookService);
     }
 
+    @WithMockUser(username = "petrov", authorities = {"admin"})
     @SneakyThrows
     @Test
     void postCreate() {
@@ -91,7 +93,7 @@ class GenreControllerTest {
     }
 
     @SneakyThrows
-
+    @WithMockUser(username = "petrov", authorities = {"admin"})
     @Test
     void edit() {
         Book book = new Book(1L, "title1");
@@ -111,6 +113,7 @@ class GenreControllerTest {
         verifyNoMoreInteractions(bookService);
     }
 
+    @WithMockUser(username = "petrov", authorities = {"admin"})
     @SneakyThrows
     @Test
     void saveGenre() {
@@ -126,6 +129,7 @@ class GenreControllerTest {
         verifyNoMoreInteractions(genreService);
     }
 
+    @WithMockUser(username = "petrov", authorities = {"admin"})
     @SneakyThrows
     @Test
     void delete() {
@@ -137,6 +141,7 @@ class GenreControllerTest {
         verifyNoMoreInteractions(genreService);
     }
 
+    @WithMockUser(username = "petrov", authorities = {"admin"})
     @SneakyThrows
     @Test
     void show() {
