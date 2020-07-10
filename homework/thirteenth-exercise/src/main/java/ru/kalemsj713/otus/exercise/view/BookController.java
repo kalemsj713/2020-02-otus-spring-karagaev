@@ -1,6 +1,7 @@
 package ru.kalemsj713.otus.exercise.view;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,13 +22,13 @@ import javax.validation.Valid;
 public class BookController {
 
     private final BookService bookService;
-
+    @PreAuthorize("hasAuthority('admin')")
     @GetMapping("/new")
     public String create(Model model) {
         model.addAttribute("book", new Book());
         return "book/new";
     }
-
+    @PreAuthorize("hasAuthority('admin')")
     @PostMapping("/new")
     public String create(@Valid Book book, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -37,14 +38,14 @@ public class BookController {
         book = bookService.saveBook(book);
         return "redirect:/book?id=" + book.getId();
     }
-
+    @PreAuthorize("hasAuthority('admin')")
     @GetMapping("/edit")
     public String edit(@RequestParam("id") long id, Model model) {
         Book book = bookService.getBookById(id).orElseThrow(NotFoundException::new);
         model.addAttribute("book", book);
         return "book/edit";
     }
-
+    @PreAuthorize("hasAuthority('admin')")
     @PostMapping("/edit")
     public String saveBook(@Valid Book book, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -55,7 +56,7 @@ public class BookController {
         return "redirect:/book?id=" + book.getId();
     }
 
-
+    @PreAuthorize("hasAuthority('admin')")
     @GetMapping("/delete")
     public RedirectView delete(@RequestParam("id") long id) {
         bookService.deleteBook(id);

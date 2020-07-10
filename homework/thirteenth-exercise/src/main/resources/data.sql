@@ -26,8 +26,8 @@ values (1, 'комментарий1'),
        (1, 'комментарий5');
 
 insert into users(fio, login, password, is_active)
-values ('Петров Петр Петрович', 'petrov', '123123', 'T'),
-       ('Пупкин Василий Петрович', 'pupkin', '000000', 'T');
+values ('Петров Петр Петрович', 'petrov', 'petrov', 'T'),
+       ('Пупкин Василий Петрович', 'pupkin', 'pupkin', 'T');
 
 insert into roles(name)
 values ('admin'),

@@ -1,6 +1,7 @@
 package ru.kalemsj713.otus.exercise.view;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,7 @@ public class GenreController {
     private final BookService bookService;
     private final GenreService genreService;
 
+    @PreAuthorize("hasAuthority('admin')")
     @GetMapping("/new")
     public String create(Model model) {
         model.addAttribute("genre", new Genre());
@@ -34,6 +36,7 @@ public class GenreController {
         return "genre/new";
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @PostMapping("/new")
     public String create(@Valid Genre genre, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -46,6 +49,7 @@ public class GenreController {
         return "redirect:/";
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @GetMapping("/edit")
     public String edit(@RequestParam("id") long id, Model model) {
         Genre genre = genreService.getGenreById(id).orElseThrow(NotFoundException::new);
@@ -55,6 +59,7 @@ public class GenreController {
         return "genre/edit";
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @PostMapping("/edit")
     public String saveGenre(@Valid Genre genre, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -68,6 +73,7 @@ public class GenreController {
     }
 
 
+    @PreAuthorize("hasAuthority('admin')")
     @GetMapping("/delete")
     public RedirectView delete(@RequestParam("id") long id) {
         genreService.deleteGenre(id);
