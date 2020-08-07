@@ -8,7 +8,7 @@ import ru.kalemsj713.otus.exercise.domain.MenuItem;
 
 import java.util.List;
 
-@MessagingGateway
+@MessagingGateway(errorChannel = "errors")
 public interface CafeGateway {
     @Gateway(requestChannel = "ordersChannel", replyChannel = "coffeeChannel")
     List<Coffee> processOrder(List<MenuItem> items);

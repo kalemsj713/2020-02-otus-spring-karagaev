@@ -27,6 +27,13 @@ public class SpringIntegrationConfig {
     }
 
     @Bean
+    public IntegrationFlow errorFlow() {
+        return IntegrationFlows.from("errors")
+                .handle("baristaServiceImpl", "errors")
+                .get();
+    }
+
+    @Bean
     public IntegrationFlow cafeFlow() {
         return IntegrationFlows.from("ordersChannel")
                 .split()

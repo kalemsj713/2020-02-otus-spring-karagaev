@@ -45,8 +45,16 @@ public class CoffeeServiceImpl implements CoffeeService {
         if (!items.isEmpty()) {
             dishes = cafeGateway.processOrder(items);
             System.out.println("Your coffee(s) is ready:");
-            dishes.forEach(System.out::println);
+            for (Coffee coffee : dishes) {
+                printDishes(coffee);
+            }
         }
         return dishes;
+    }
+
+    void printDishes(Coffee coffee) {
+        if (coffee.getName() != null) {
+            System.out.println(coffee.toString());
+        }
     }
 }
